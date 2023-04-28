@@ -16,6 +16,16 @@
 #include <lager/extra/derive/eq.hpp>
 #include <lager/extra/derive/hana.hpp>
 #include <lager/extra/derive/size_check.hpp>
+#include <lager/extra/derive/hash.hpp>
+
+/*!
+ * This macro declares the struct as a Boost.Hana sequence, so it can be
+ * introspected via metaprogramming.  It also adds overloads to compare
+ * equality and inequality, as well as adding an implementation for std::hash<>
+ * so that this struct can be used as a map key.
+ * This macro has similar syntax to BOOST_HANA_ADAPT_STRUCT.
+ */
+#define LAGER_STRUCT_HASH(...) LAGER_DERIVE((EQ, HANA, SIZE_CHECK, HASH), __VA_ARGS__)
 
 /*!
  * This macro declares the struct as a Boost.Hana sequence, so it can be
