@@ -70,7 +70,7 @@ using as_actions_t = typename as_actions<ActionOrActions>::type;
 namespace detail {
 
 template <typename Action, typename Candidates>
-auto find_convertible_action_aux(Action act, Candidates candidates)
+auto find_convertible_action_aux(Action, Candidates candidates)
 {
     auto is_convertible = [](auto t) {
         return std::is_convertible<typename Action::type,

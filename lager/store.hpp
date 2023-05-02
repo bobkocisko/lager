@@ -79,7 +79,7 @@ public:
           ReducerFn reducer,
           EventLoop loop,
           Deps dependencies,
-          Tags tags)
+          Tags)
         : store{std::make_shared<store_node<ReducerFn, EventLoop, Deps, Tags>>(
               std::move(init),
               std::move(reducer),
@@ -276,7 +276,7 @@ auto with_reducer(Reducer&& reducer)
     return [reducer = LAGER_FWD(reducer)](auto next) {
         return [reducer, next](auto action,
                                auto&& model,
-                               auto&& old_reducer,
+                               auto&&, // old_reducer
                                auto&& loop,
                                auto&& deps,
                                auto&& tags) {
