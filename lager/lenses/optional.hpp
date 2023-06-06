@@ -135,6 +135,20 @@ ZUG_INLINE_CONSTEXPR auto value_or()
  */
 ZUG_INLINE_CONSTEXPR auto or_default = value_or();
 
+
+/*!
+ * `() -> Lens<[X], X>`
+ */
+ZUG_INLINE_CONSTEXPR auto or_throw = zug::comp([](auto&& f) {
+    return [&, f = LAGER_FWD(f)](auto&& whole) {
+        if (!LAGER_FWD(whole).has_value())
+            LAGER_THROW(std::runtime_error("missing value"));
+        return f(LAGER_FWD(whole).value())(
+            [&](auto&& x) { return LAGER_FWD(x); });
+    };
+});
+
+
 /*!
  * `Lens<T, [T]>`
  */
